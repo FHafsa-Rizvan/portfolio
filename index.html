@@ -8,7 +8,10 @@
 <meta name="theme-color" content="#121110">
 <meta property="og:title" content="Hafsa Rizvan, full-stack website developer">
 <meta property="og:description" content="Websites built with care, from first idea to launch.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%272%27 y=%272%27 width=%2728%27 height=%2728%27 rx=%278%27 fill=%27%23121110%27 stroke=%27%23E9BC45%27 stroke-width=%273%27/%3E%3Ctext x=%2716%27 y=%2721%27 font-size=%2713%27 font-family=%27sans-serif%27 font-weight=%27700%27 text-anchor=%27middle%27 fill=%27%23E9BC45%27%3EHR%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..700&family=Caveat:wght@600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 :root{
@@ -66,8 +69,9 @@ button{font:inherit;color:inherit}
 .tt svg{width:18px;height:18px;display:block}
 
 /* hero */
-.hero{padding-block:72px 0}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:56px;align-items:center}
+.first{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+.hero{flex:1;display:flex;align-items:center;padding-block:24px 56px}
+.hero-grid{width:100%;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:56px;align-items:center}
 .hero-copy{min-width:0}
 @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes orbit{to{--a:360deg}}
@@ -81,10 +85,22 @@ button{font:inherit;color:inherit}
   mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
   animation:orbit 5s linear infinite;
 }
-.code{margin:0;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.code-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface2)}
-.code-bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
-.code-bar span{margin-left:8px;color:var(--muted)}
+.code{position:relative;margin:0;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
+.code:hover,.code:focus-within,.code.on{border-color:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 16%,transparent)}
+.code-bar{display:grid;grid-template-columns:62px minmax(0,1fr) 62px;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface2);transition:border-color .3s}
+.dots{display:flex;gap:8px}
+.mdot{width:13px;height:13px;border-radius:50%;padding:0;cursor:pointer;display:grid;place-items:center;font-family:var(--display);font-size:10px;line-height:1;font-weight:700;color:transparent;background:var(--line);border:1px solid color-mix(in srgb,var(--muted) 35%,transparent);transition:background .2s,border-color .2s,color .15s}
+.code:hover .mdot.r,.code:focus-within .mdot.r,.code.on .mdot.r{background:#FF5F57;border-color:#E0443E}
+.code:hover .mdot.y,.code:focus-within .mdot.y,.code.on .mdot.y{background:#FEBC2E;border-color:#DEA123}
+.code:hover .mdot.g,.code:focus-within .mdot.g,.code.on .mdot.g{background:#28C840;border-color:#1AAB29}
+.dots:hover .mdot,.dots:focus-within .mdot{color:rgba(0,0,0,.6)}
+.code-title{text-align:center;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.code-wrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .35s ease}
+.code.min .code-wrap{grid-template-rows:0fr}
+.code.min .code-bar{border-bottom-color:transparent}
+.code-clip{overflow:hidden;min-height:0}
+.code.zoom .code-body{font-size:clamp(.8rem,1.6vw,.95rem)}
+.reopen{justify-self:start;cursor:pointer;background:var(--surface);border:1px solid var(--gold);color:var(--gold-text);border-radius:999px;padding:10px 18px}
 .code-body{padding:22px 24px 26px;font-family:var(--mono);font-size:clamp(.72rem,1.4vw,.84rem);line-height:1.9;color:var(--fg)}
 .cl{white-space:pre-wrap;overflow-wrap:anywhere;animation:lineIn .45s ease backwards;animation-delay:calc(var(--i) * .22s + .25s)}
 .cl.in{padding-left:2ch}
@@ -247,7 +263,7 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
   .hero-grid{grid-template-columns:minmax(0,1fr);gap:44px}
   .srow{--c:72px}
   .trow{gap:12px}
-  .hero{padding-block:44px 0}
+  .hero{padding-block:16px 40px}
   .sec{padding-top:68px}
   .thumb{min-height:0}
   .contact{padding:32px 20px}
@@ -265,17 +281,19 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
   .dl{display:block}
   .live a{flex-direction:column;gap:4px}
   .live .u{text-align:left}
+  .top{padding-block:16px}
+  .hero-grid{gap:26px}
+  .badge{margin-bottom:18px}
+  h1{font-size:2.05rem;margin-bottom:16px}
+  .lede{font-size:1.02rem;margin-bottom:24px}
+  .code-body{padding:14px 16px 16px;line-height:1.7}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
 }
 </style>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="48x48">
-<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="google-site-verification" content="KX3TTcJYbtVF5YNEvjSIqelchERJjWCwIKWi8S1twYE" />
+
 </head>
 <body>
 <div id="root"></div>
@@ -284,10 +302,10 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script>
 (function(){
-  var useState=React.useState,useEffect=React.useEffect,h=React.createElement;
+  var useState=React.useState,useEffect=React.useEffect,useRef=React.useRef,h=React.createElement;
 
   /* Add your own links here. Empty values are hidden, and the contact block hides if all are empty. */
-  var CONTACT={email:"",github:"",linkedin:""};
+  var CONTACT={email:"rizvanhafsa@gmail.com",github:"https://github.com/FHafsa-Rizvan",linkedin:"https://www.linkedin.com/in/hafsa-rizvan"};
   var hasContact=!!(CONTACT.email||CONTACT.github||CONTACT.linkedin);
 
   /* ---------- theme toggle ---------- */
@@ -461,7 +479,7 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
 
   /* ---------- page parts ---------- */
   function Header(){
-    var links=[["#work","Work"],["#skills","Skills"],["#stack","Tools"],["#about","About"]];
+    var links=[["#work","Work"],["#skills","Skills"],["#stack","Tools"],["#about","About"],["#contact","Contact"]];
     return h("header",{className:"top"},
       h("a",{className:"brand",href:"#top"},h("span",{className:"mark","aria-hidden":"true"},"HR"),"Hafsa Rizvan"),
       h("div",{className:"right"},
@@ -470,14 +488,30 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
   }
 
   function CodeCard(){
+    var ms=useState("open"),mode=ms[0],setMode=ms[1];
+    var zs=useState(false),zoom=zs[0],setZoom=zs[1];
+    var os=useState(false),on=os[0],setOn=os[1];
+    var ref=useRef(null);
+    useEffect(function(){
+      function away(e){if(ref.current&&!ref.current.contains(e.target))setOn(false);}
+      document.addEventListener("pointerdown",away);
+      return function(){document.removeEventListener("pointerdown",away);};
+    },[]);
     function ln(i,ind,parts){
       return h("div",{key:i,className:"cl"+(ind?" in":""),style:{"--i":i}},
         parts.map(function(p,j){return h("span",{key:j,className:p[0]},p[1]);}));
     }
     function kv(i,k,v){return ln(i,true,[["pk",k],["pu",": "]].concat(v,[["pu",","]]));}
-    return h("figure",{className:"code","aria-label":"A short summary of me, written as code"},
-      h("div",{className:"code-bar","aria-hidden":"true"},h("i"),h("i"),h("i"),h("span",{className:"mono"},"about-me.js")),
-      h("div",{className:"code-body"},
+    if(mode==="closed")return h("button",{className:"reopen mono",type:"button",onClick:function(){setMode("open");setOn(true);}},"Reopen about-me.js ↻");
+    return h("figure",{className:"code"+(on?" on":"")+(mode==="min"?" min":"")+(zoom?" zoom":""),ref:ref,onClick:function(){setOn(true);},"aria-label":"A short summary of me, written as code"},
+      h("div",{className:"code-bar"},
+        h("div",{className:"dots"},
+          h("button",{className:"mdot r",type:"button","aria-label":"Close window",onClick:function(){setMode("closed");}},"×"),
+          h("button",{className:"mdot y",type:"button","aria-label":mode==="min"?"Expand window":"Minimize window",onClick:function(){setMode(mode==="min"?"open":"min");}},"−"),
+          h("button",{className:"mdot g",type:"button","aria-label":"Zoom window",onClick:function(){setMode("open");setZoom(!zoom);}},"+")),
+        h("span",{className:"code-title mono"},"about-me.js"),
+        h("span",null)),
+      h("div",{className:"code-wrap"},h("div",{className:"code-clip"},h("div",{className:"code-body"},
         ln(0,false,[["pw","const"],["pk"," hafsa "],["pu","= {"]]),
         kv(1,"role",[["ps",'"Full-stack website developer"']]),
         kv(2,"education",[["ps",'"Undergraduate"']]),
@@ -486,11 +520,11 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
         kv(5,"stack",[["pu","["],["ps",'"React"'],["pu",", "],["ps",'"Python"'],["pu",", "],["ps",'"PHP"'],["pu",", "],["ps",'"WordPress"'],["pu","]"]]),
         kv(6,"quickLearner",[["pw","true"]]),
         kv(7,"whenIStart",[["ps",'"I give it my best"']]),
-        ln(8,false,[["pu","};"],["caret",""]])));
+        ln(8,false,[["pu","};"],["caret",""]])))));
   }
 
   function Hero(){
-    return h("section",{className:"hero",id:"top"},
+    return h("section",{className:"hero"},
       h("div",{className:"hero-grid"},
       h("div",{className:"hero-copy"},
         h("p",{className:"badge"},h("i",{"aria-hidden":"true"}),"Full-stack website developer"),
@@ -543,7 +577,7 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
     if(CONTACT.email)items.push(h("a",{key:"e",className:"pill-btn",href:"mailto:"+CONTACT.email},h("span",{className:"ar","aria-hidden":"true"},"→"),"Email me"));
     if(CONTACT.github)items.push(h("a",{key:"g",className:"ghost-btn",href:CONTACT.github,target:"_blank",rel:"noopener noreferrer"},"GitHub ↗"));
     if(CONTACT.linkedin)items.push(h("a",{key:"l",className:"ghost-btn",href:CONTACT.linkedin,target:"_blank",rel:"noopener noreferrer"},"LinkedIn ↗"));
-    return h("section",{className:"contact",id:"contact"},h("h2",null,"Let's work together."),h("div",{className:"links"},items));
+    return h("section",{className:"contact",id:"contact"},h("h2",null,"Let's work together."),h("p",{className:"mono muted",style:{margin:"0 0 22px",textTransform:"none",userSelect:"all",overflowWrap:"anywhere"}},CONTACT.email),h("div",{className:"links"},items));
   }
 
   function Footer(){
@@ -560,8 +594,8 @@ h1{margin:0 0 24px;font-size:clamp(2.3rem,4.6vw,3.9rem);line-height:1.08;font-we
 
   function App(){
     return h("div",{className:"wrap"},
-      h(Header),
-      h("main",null,h(Hero),h(Work),h(Skills),h(Tools),h(About),h(Live),h(Contact)),
+      h("div",{className:"first",id:"top"},h(Header),h(Hero)),
+      h("main",null,h(Work),h(Skills),h(Tools),h(About),h(Live),h(Contact)),
       h(Footer));
   }
 
